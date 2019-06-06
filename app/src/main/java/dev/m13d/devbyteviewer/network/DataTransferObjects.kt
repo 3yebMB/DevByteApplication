@@ -19,6 +19,7 @@ package dev.m13d.devbyteviewer.network
 
 import dev.m13d.devbyteviewer.domain.Video
 import com.squareup.moshi.JsonClass
+import dev.m13d.devbyteviewer.database.DatabaseVideo
 
 /**
  * DataTransferObjects go in this file. These are responsible for parsing responses from the server
@@ -62,4 +63,15 @@ fun NetworkVideoContainer.asDomainModel(): List<Video> {
                 updated = it.updated,
                 thumbnail = it.thumbnail)
     }
+}
+
+fun NetworkVideoContainer.asDatabaseModel(): Array<DatabaseVideo> {
+    return videos.map {
+        DatabaseVideo (
+                title = it.title,
+                description = it.description,
+                url = it.url,
+                updated = it.updated,
+                thumbnail = it.thumbnail)
+    }.toTypedArray()
 }
